@@ -1,10 +1,11 @@
+
 <div align="center">
 
 # 🛒 CARTOVIA — E-Commerce Platform
 
 **A full-stack, responsive modern shopping application built with Node.js, Express 5, MongoDB, and Vanilla JavaScript.**
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Cartovia-FF5A82?style=for-the-badge&logo=googlechrome&logoColor=white)](https://aakritigupta-19.github.io/CodeAlpha_Task1_Cartovia/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Cartovia-FF5A82?style=for-the-badge&logo=googlechrome&logoColor=white)](https://aakritigupta-19.github.io/CodeAlpha_Task1_Cartovia/public/)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-5.2-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose%209.9-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
@@ -12,7 +13,7 @@
 
 <br/>
 
-👉 **[🚀 Launch Live Demo Website](https://aakritigupta-19.github.io/CodeAlpha_Task1_Cartovia/)** 👈
+👉 **[🚀 Launch Live Demo Website](https://aakritigupta-19.github.io/CodeAlpha_Task1_Cartovia/public/)** 👈
 
 </div>
 
