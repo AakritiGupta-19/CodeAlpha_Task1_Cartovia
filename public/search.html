@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search & Category Results - CARTOVIA</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- =========================
+         NAVBAR / HEADER
+    ========================== -->
+    <header class="navbar header">
+        <div class="nav-container navbar-container">
+            <!-- Brand Logo -->
+            <a href="index.html" class="logo" title="CARTOVIA Home">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>CARTOVIA</span>
+            </a>
+
+            <!-- Search Box in Header -->
+            <div class="search-box" id="searchBoxContainer">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search 900+ products (clothes, shoes, watches...)"
+                    autocomplete="off">
+                <button class="search-clear-btn" id="searchClearBtn" style="display:none;" title="Clear search">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Navbar Actions -->
+            <div class="nav-actions">
+                <a href="index.html" class="icon-btn" title="Back to Home" style="text-decoration: none;">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                <!-- Dark / Light Mode Toggle -->
+                <button
+                    class="icon-btn"
+                    id="themeToggle"
+                    title="Toggle theme"
+                    aria-label="Toggle dark and light theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <!-- Wishlist Button -->
+                <button
+                    class="icon-btn wishlist-nav-btn"
+                    id="wishlistButton"
+                    title="View Wishlist"
+                    aria-label="View Wishlist"
+                    onclick="openWishlist()">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="wishlist-count" id="wishlistCount">0</span>
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================
+         DEDICATED SEARCH & CATEGORY RESULTS VIEW
+    ========================== -->
+    <main>
+        <section class="search-results-page" id="searchResultsPage">
+            <div class="section-container">
+                <!-- Top Navigation: Back Button + Breadcrumbs -->
+                <div class="results-top-nav">
+                    <a href="index.html" class="back-home-btn" id="backHomeBtn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Back to Home</span>
+                    </a>
+                    <div class="results-breadcrumbs">
+                        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+                        <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
+                        <span id="breadcrumbCurrent">Search Results</span>
+                    </div>
+                </div>
+
+                <!-- Page Header: Title, 100 Count Badge, Sort Dropdown -->
+                <div class="results-header-bar">
+                    <div class="results-header-left">
+                        <h1 class="results-title" id="resultsPageTitle">Showing Products</h1>
+                        <span class="results-count-badge" id="resultsCountBadge">100 Products</span>
+                    </div>
+                    <div class="results-sort-wrapper">
+                        <label for="resultsSortSelect"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort by:</label>
+                        <select id="resultsSortSelect" class="results-sort-select" aria-label="Sort products">
+                            <option value="relevance">Relevance (Best Match)</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="rating-desc">Customer Rating (Highest)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quick Category Filter Chips (Instant 1-Click switch to 100 products of any category) -->
+                <div class="results-category-chips-bar" id="resultsCategoryChips">
+                    <button type="button" class="res-cat-chip active" data-category="ALL">All Categories</button>
+                    <button type="button" class="res-cat-chip" data-category="Clothing"><i class="fa-solid fa-shirt"></i> Clothing</button>
+                    <button type="button" class="res-cat-chip" data-category="Shoes"><i class="fa-solid fa-shoe-prints"></i> Shoes</button>
+                    <button type="button" class="res-cat-chip" data-category="Watches"><i class="fa-solid fa-clock"></i> Watches</button>
+                    <button type="button" class="res-cat-chip" data-category="Electronics"><i class="fa-solid fa-laptop"></i> Electronics</button>
+                    <button type="button" class="res-cat-chip" data-category="Bags"><i class="fa-solid fa-bag-shopping"></i> Bags</button>
+                    <button type="button" class="res-cat-chip" data-category="Accessories"><i class="fa-solid fa-glasses"></i> Accessories</button>
+                    <button type="button" class="res-cat-chip" data-category="Kids & Toys"><i class="fa-solid fa-shapes"></i> Kids & Toys</button>
+                    <button type="button" class="res-cat-chip" data-category="Books"><i class="fa-solid fa-book"></i> Books</button>
+                    <button type="button" class="res-cat-chip" data-category="Home"><i class="fa-solid fa-couch"></i> Home</button>
+                </div>
+
+                <!-- 2-COLUMN MEESHO / AMAZON SHOPPING GRID (~50 Rows × 2 Columns = 100 Products) -->
+                <div class="results-grid-2col" id="resultsGrid2Col" role="region" aria-label="100 Products Results Grid">
+                    <!-- Products dynamically rendered by search.js -->
+                </div>
+
+                <!-- Empty State Fallback -->
+                <div class="results-empty-state" id="resultsEmptyState" style="display: none;">
+                    <div class="empty-icon-circle">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3>No products found</h3>
+                    <p id="emptyStateMsg">We couldn't find any products matching your search. Try exploring categories like Clothing, Shoes, or Watches!</p>
+                    <button class="primary-btn" id="emptyStateExploreBtn" type="button">
+                        <i class="fa-solid fa-compass"></i> Explore Clothing Collection
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================
+         PRODUCT DETAILS MODAL
+    ========================== -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <button class="close-modal-btn" id="closeProductModal" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="productDetails"></div>
+        </div>
+    </div>
+
+    <!-- =========================
+         SHOPPING CART MODAL
+    ========================== -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h2><i class="fa-solid fa-cart-shopping"></i> Your Cart</h2>
+                <button class="close-modal-btn" id="closeCartModal" aria-label="Close cart modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="empty-cart" id="emptyCart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add some products to your cart.</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">₹0</span>
+                </div>
+                <button class="checkout-btn" id="checkoutButton">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         TOAST NOTIFICATION
+    ========================== -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">Product added to cart</span>
+    </div>
+
+    <!-- =========================
+         APP BOTTOM NAVIGATION BAR
+    ========================== -->
+    <nav class="app-bottom-nav" id="appBottomNav">
+        <a href="index.html" class="bottom-nav-item" id="bottomNavHome">
+            <div class="bottom-nav-icon-wrap">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <span>Home</span>
+        </a>
+        <a href="categories.html" class="bottom-nav-item" id="bottomNavCategories">
+            <div class="bottom-nav-icon-wrap">
+                <i class="fa-solid fa-table-cells-large"></i>
+            </div>
+            <span>Categories</span>
+        </a>
+        <a href="account.html" class="bottom-nav-item" id="bottomNavAccount">
+            <div class="bottom-nav-icon-wrap">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <span>Account</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-item" id="bottomNavCart" aria-label="Open Cart">
+            <div class="bottom-nav-icon-wrap">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="bottom-nav-badge" id="bottomCartCount">0</span>
+            </div>
+            <span>Cart</span>
+        </a>
+    </nav>
+
+    <!-- =========================
+         WISHLIST MODAL
+    ========================== -->
+    <div class="modal-overlay" id="wishlistModal">
+        <div class="cart-modal wishlist-modal">
+            <div class="modal-header">
+                <h2>
+                    <i class="fa-solid fa-heart" style="color: #ef4444;"></i>
+                    My Wishlist
+                </h2>
+                <button class="modal-close" id="closeWishlistModal" onclick="closeWishlist()" aria-label="Close wishlist">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="cart-items wishlist-items" id="wishlistItemsList"></div>
+            <div class="empty-cart" id="emptyWishlist" style="display: none; padding: 24px 10px;">
+                <i class="fa-regular fa-heart" style="color: #ef4444;"></i>
+                <h3>Your wishlist is empty</h3>
+                <p>Explore our collection and save items you love!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+    <script src="productsData.js"></script>
+    <script src="search.js"></script>
+</body>
+</html>
